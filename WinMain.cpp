@@ -4,10 +4,10 @@ int main()
 {
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 6;
-    sf::RenderWindow window(sf::VideoMode(2400, 1300), "Grafity", sf::Style::Default, settings); // Объявление окна (в нем все отображается)
-    //window.setFramerateLimit(60); //Раскоменьтить для регулировки fps
+    sf::RenderWindow window(sf::VideoMode(2400, 1300), "Grafity", sf::Style::Default, settings); // Window declaration (everything is displayed in it)
+    //window.setFramerateLimit(60); //uncomment to adjust fps
 
-    // Далее - объявление небесных тел
+    // Next is the announcement of celestial bodies
     Planet Sun(2, sf::Color::Yellow, sf::Vector2f(1200, 650), sf::Vector2f(0.00, 0.0002), 20);
     Planet Earth(2, sf::Color::Green, sf::Vector2f(1200, 400), sf::Vector2f(-0.12, -0.00),5);
     Planet a = Planet(2, sf::Color::Blue, sf::Vector2f(1200, 650), sf::Vector2f(0.00, 0.0002), 20);
@@ -17,31 +17,31 @@ int main()
     Planet c = Planet(2, sf::Color(127, 127, 127), sf::Vector2f(850, 630), sf::Vector2f(0.0, -0.30), 0.01);
     Planet Moon(2, sf::Color::Cyan, sf::Vector2f(710, 460), sf::Vector2f(1,0), 20);
 
-    Planet planets[5]{ a,d, o,b,c}; // Создаем массив, содержащий выбранные планетыж
+    Planet planets[5]{ a,d, o,b,c}; // Create an array containing the selected planets
     while (window.isOpen()) {
 
 
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) { 
-                window.close(); // Если случился event::Closed() - закрыть окно
+                window.close(); // If event::Closed happens - close the window
             }
         }
         for (int i = 0; i < 5; i++) {
-            planets[i].acc = sf::Vector2f(0, 0); // Обнуляем ускорение всех небесных тел
+            planets[i].acc = sf::Vector2f(0, 0); // Zero the acceleration of all celestial bodies
         }
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (i != j) {
-                    // К вектору ускорения планеты прибавляем вектор ускорения в сторону прочих небесных тел
+                    // To the acceleration vector of the planet add the acceleration vector toward other celestial bodies
                     planets[i].acc += A(planets[i], planets[j]);
                 }
                 else continue;
             }
         }
         for (int i = 0; i < 5; i++) {
-            planets[i].move(); // Двигаем планету
-            window.draw(planets[i].shape_planet); // рисуем планету
+            planets[i].move(); // Move the planet
+            window.draw(planets[i].shape_planet); // drawing the planet
         }
         window.display();
     }
