@@ -1,26 +1,26 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-// class Planet - класс, описывающий небесное тело
+// class Planet - a class describing a celestial body
 class Planet {
 public:
-sf::CircleShape shape_planet; // объект sfml, именно его мы и будем отрисовывать
-	sf::Color color; // цвет планеты
-	sf::Vector2f pos; // начальные координаты планеты
-	sf::Vector2f vel; // вектор скорости. Задается двумя числами (х,у) - скорость по оx и скорость по оy соответственно
-	sf::Vector2f acc; // вектор ускорения. По умолчанию равен (0,0). Задается так-же, как вектор скорости
-	float mass; // масса планеты
+sf::CircleShape shape_planet; // sfml object, that's what we'll render
+	sf::Color color; // planetary color
+	sf::Vector2f pos; // planetary initial coordinates
+	sf::Vector2f vel; // velocity vector. It is defined by two numbers (x,y) - velocity along ox and velocity along oy, respectively
+	sf::Vector2f acc; // acceleration vector. Default value is (0,0). Set in the same way as the velocity vector
+	float mass; // mass of the celestial body
 
-	Planet(); // конструктор по умолчанию
-	Planet(float _rad,sf::Color _col, sf::Vector2f _pos, sf::Vector2f _vel, float mass); // основной коструктор
+	Planet(); // default constructor
+	Planet(float _rad,sf::Color _col, sf::Vector2f _pos, sf::Vector2f _vel, float mass); // Г®Г±Г­Г®ГўГ­Г®Г© ГЄГ®Г±ГІГ°ГіГЄГІГ®Г°
 
 	void setAcceleration(sf::Vector2f new_accel) { acc = new_accel; } 
 	void setPosition(sf::Vector2f new_position) {pos = new_position;}
 	void setVelocity(sf::Vector2f new_velocity) {vel = new_velocity;}
 	void move() {
-		vel += acc; // к вектору скорости прибавляем вектор ускорения
-		pos += vel; // к координатам прибавляем вектор скорости
-		shape_planet.move(vel); // двигаем отображаемую планету на экране
+		vel += acc; // to the velocity vector add the acceleration vector
+		pos += vel; // add the velocity vector to the coordinates
+		shape_planet.move(vel); // move the displayed planet on the screen
 	}	
 	sf::Color getColor() { return color; }
 	sf::Vector2f getPosition() { return pos; }
@@ -29,7 +29,7 @@ sf::CircleShape shape_planet; // объект sfml, именно его мы и будем отрисовывать
 	float getRadius() { return shape_planet.getRadius(); }
 	float getMass() { return mass; }
 
-	bool operator!=(Planet const& other) { return color != other.color || pos != other.pos || mass != other.mass; } // неравенство двух планет
+	bool operator!=(Planet const& other) { return color != other.color || pos != other.pos || mass != other.mass; }
 	
 };
 Planet::Planet() {
@@ -41,11 +41,11 @@ Planet::Planet() {
 	mass = 0.0;
 }
 Planet::Planet(float _rad,sf::Color _col, sf::Vector2f _pos, sf::Vector2f _vel, float _mass) {
-	// _rad - радиус тела
-	// _col - цвет
-	// _pos - координаты небесного тела
-	// _vel - вектор скорости тела
-	// _mas - масса тела
+	// _rad - body radius
+	// _col - color
+	// _pos - coordinates of the celestial body
+	// _vel - velocity vector of the body
+	// _mas - body mass
 	shape_planet.setRadius(_rad);
 	shape_planet.setPosition(_pos);
 	shape_planet.setFillColor(_col);
