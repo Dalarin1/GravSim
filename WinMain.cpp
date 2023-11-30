@@ -5,6 +5,7 @@
 
 
 
+
 void move_bodies(std::vector<Planet>& celestials) {
     for (int i = 0; i < celestials.size(); i++) {
         celestials[i].acc = sf::Vector2f(0, 0); // Zero the acceleration of all celestial bodies
@@ -53,10 +54,12 @@ void consolePlanet(std::vector<Planet>& celestials, sf::RenderWindow& window) {
             std::cout << "latest added planet removed succesfully" << std::endl;
             continue;
         }
-        if (command == "set fps") {
+        if (command == "chfps") {
             int fps;
+            std::cout<<"set fps to: ";
             std::cin >> fps;
             window.setFramerateLimit(fps);
+            std::cout << "Now fps is " << fps << std::endl;
             continue;
         }
     }
@@ -70,23 +73,22 @@ int main()
     settings.antialiasingLevel = 6;
     sf::RenderWindow window(sf::VideoMode(1200, 800), "Grafity", sf::Style::Default, settings); // Window declaration (everything is displayed in it)
     //window.setFramerateLimit(60); //uncomment to adjust fps
-
     std::vector<Planet> celestials;
 
     //celestials.push_back(Planet(2, sf::Color::Yellow, sf::Vector2f(1200, 650), sf::Vector2f(0.00, 0.0002), 20));
     //celestials.push_back(Planet(2, sf::Color::Green, sf::Vector2f(1200, 400), sf::Vector2f(-0.12, -0.00), 5));
-    celestials.push_back(Planet(2, sf::Color::Blue, sf::Vector2f(1200, 650), sf::Vector2f(0.00, 0.0002), 20));
-    celestials.push_back(Planet(2, sf::Color::Green, sf::Vector2f(1100, 650), sf::Vector2f(0.00, -0.15), 5));
-    celestials.push_back(Planet(2, sf::Color::Yellow, sf::Vector2f(1000, 650), sf::Vector2f(0.0, 0.43), 1));
-    celestials.push_back(Planet(2, sf::Color::Red, sf::Vector2f(850, 650), sf::Vector2f(0.0, 0.26), 1));
-    celestials.push_back(Planet(2, sf::Color(127, 127, 127), sf::Vector2f(850, 630), sf::Vector2f(0.0, -0.30), 0.01));
+    celestials.push_back(Planet(2, sf::Color::Blue, sf::Vector2f(600, 450), sf::Vector2f(0.00, 0.0002), 20));
+    celestials.push_back(Planet(2, sf::Color::Green, sf::Vector2f(500, 450), sf::Vector2f(0.00, -0.15), 5));
+    celestials.push_back(Planet(2, sf::Color::Yellow, sf::Vector2f(400, 450), sf::Vector2f(0.0, 0.43), 1));
+    celestials.push_back(Planet(2, sf::Color::Red, sf::Vector2f(250, 450), sf::Vector2f(0.0, 0.26), 1));
+    celestials.push_back(Planet(2, sf::Color(127, 127, 127), sf::Vector2f(250, 430), sf::Vector2f(0.0, -0.30), 0.01));
     std::cout << "Для создания собственных небесных тел воспользуйтесь командой add" << std::endl;
 
-
     std::thread th(consolePlanet, std::ref(celestials), std::ref(window));
+    
     while (window.isOpen()) {
         
-
+        
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
